@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <link rel="stylesheet" href="index.css">
+        <title>Movie Watchlist</title>
+    </head>
+    <body>
+        <header>
+            <div class="overlay">
+                <h1>Find your film</h1>
+                <a href="/watchlist.html">My Watchlist</a>
+            </div>
+        </header>
+        <div class="search-box">
+            <img src="images/icon-search.png">
+            <input type="text" id="search-text" placeholder="Search for a movie">
+            <button id="search-btn">Search</button>
+        </div>
+        <div class="popup" id="popup"></div>
+        <div class="movie-list" id="movie-list">
+        </div>
+        <script src="index.js" type="module"></script>
+        <script src="https://kit.fontawesome.com/15e3f9f726.js" crossorigin="anonymous"></script>
+    </body>
+</html>

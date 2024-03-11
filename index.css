@@ -1,0 +1,193 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 550px;
+    font-family: "Inter", sans-serif;
+}
+
+header {
+    height: 208px;
+    background-image: url("images/header.jpg");
+    background-size: cover;
+    -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+    color: white;
+}
+
+div.overlay {
+    display: flex;
+    justify-content: space-between;
+    background-color: #0E0E0E;
+    opacity: 82%;
+    height: 208px;
+}
+
+header h1 {
+    align-self: center;
+    margin-left: 42px;
+    font-size: 2.625rem;
+    font-weight: 800;
+}
+
+header a {
+    color:white;
+    text-decoration: none;
+    align-self: center;
+    padding-right: 46px;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+button {
+    cursor: pointer;
+}
+
+.search-box {
+    display: flex;
+    border: 2px solid #D1D5DB;
+    border-radius: 6px;
+    position: absolute;
+    top: 192px;
+    left: 45px;
+}
+
+.search-box img {
+    width: 17px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 4px 0 0 4px;
+}
+
+.search-box input {
+    border: none;
+    width: 310px;
+    padding: 5px;
+}
+
+.search-box button {
+    width: 120px;
+    font-size: 0.875rem;
+    color: #374151;
+    background-color: #F9FAFB;
+    border: 1px solid #D1D5DB;
+    border-radius: 0 4px 4px 0;
+}
+
+#search-text {
+    color: #6B7280;
+    font-size: 0.875rem;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 200px;
+    left: 250px;
+    background-color: yellow;
+    border: 2px solid black;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.no-initial-data {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20vh;
+}
+
+.movie-list,
+.movie-watchlist {
+    margin-top: 15px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.movie-item {
+    display: grid;
+    grid-template-columns: 100px 60px 200px 110px;
+    grid-template-rows: 25px 25px 100px;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px dotted gray;
+    gap: 10px;
+}
+
+.poster {
+    grid-row: 1 / -1;
+}
+
+.poster-img {
+    width: 100px;
+}
+
+.title {
+    grid-column: 2 / 4;
+    font-size: 1.125rem;
+}
+
+.rating {
+    grid-column: 4 / -1;
+    font-size: 0.75rem;
+}
+
+.timing, 
+.movie-genre,
+.add-text,
+.remove-text {
+    color: #111827;
+    font-size: 0.75rem;
+}
+
+.watchlist-btn {
+    padding: 2px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 50%;
+    background-color: black;
+}
+
+.watchlist-icon {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    color: white;
+}
+
+.plot {
+    color: #6B7280;
+    font-size: 0.875 rem;
+}
+
+.movie-plot {
+    grid-column: 2 / -1;
+}
+
+.empty-watchlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+}
+
+.empty-text {
+    font-size: 1.125rem;
+    color: #DFDDDD;
+}
+
+.empty-watchlist img {
+    cursor: pointer;
+}
+
+.empty-watchlist span {
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+
+
+
