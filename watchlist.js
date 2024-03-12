@@ -1,3 +1,5 @@
+import star from '/images/star.png'
+
 const omdbApiKey = "e8fa1a7c"
 
 let watchList = []
@@ -30,38 +32,33 @@ async function renderWatchlist() {
     if (watchList.length > 0) {
         for (let item of watchList) {
 
-            try {
-                res = await fetch(`http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${item}`) 
-                data = await res.json()
+            res = await fetch(`https://www.omdbapi.com/?apikey=${omdbApiKey}&i=${item}`) 
+            data = await res.json()
 
-                index = data.Ratings[0].Value.indexOf("/")
-                rating = data.Ratings[0].Value.slice(0, index)
+            index = data.Ratings[0].Value.indexOf("/")
+            rating = data.Ratings[0].Value.slice(0, index)
 
-                html += `
-                    <div class="movie-item">
-                        <div class="poster">
-                            <img class="poster-img" src="${data.Poster}">
-                        </div>
-                        <div class="title">${data.Title}</div>
-                        <div class="rating">
-                            <img class="star" src="images/star.png">
-                            <span>${rating}</span>
-                        </div>
-                        <div class="timing">${data.Runtime}</div>
-                        <div class="movie-genre">${data.Genre}</div>
-                        <div class="remove-from-watchlist">
-                            <button class="watchlist-btn">
-                                <i class="fa-solid fa-minus watchlist-icon" data-id="${data.imdbID}"></i>
-                            </button>
-                            <span class="remove-text">Remove</span>
-                        </div>
-                        <div class="movie-plot">${data.Plot}</div>
+            html += `
+                <div class="movie-item">
+                    <div class="poster">
+                        <img class="poster-img" src="${data.Poster}">
                     </div>
-                `
-            }
-            catch (err) {
-                console.error(err)
-            }
+                    <div class="title">${data.Title}</div>
+                    <div class="rating">
+                        <img class="star" src="${star}">
+                        <span>${rating}</span>
+                    </div>
+                    <div class="timing">${data.Runtime}</div>
+                    <div class="movie-genre">${data.Genre}</div>
+                    <div class="remove-from-watchlist">
+                        <button class="watchlist-btn">
+                            <i class="fa-solid fa-minus watchlist-icon" data-id="${data.imdbID}"></i>
+                        </button>
+                        <span class="remove-text">Remove</span>
+                    </div>
+                    <div class="movie-plot">${data.Plot}</div>
+                </div>
+            `
             movieWatchlist.innerHTML = html
         }
     } else {
@@ -69,14 +66,16 @@ async function renderWatchlist() {
             <div class="empty-watchlist">
                 <p class="empty-text">Your watchlist is looking a little empty...</p>
                 <div>
-                    <img class="watchlist-icon" id="watchlist-icon" src="images/icon-plus.png">
+                    <button class="watchlist-btn" id="watchlist-btn">
+                        <i class="fa-solid fa-plus watchlist-icon"></i> 
+                    </button>
                     <span>Let's add some moves!</span>
                 </div>
             </div>
         `
         movieWatchlist.innerHTML = html
-        const watchlistIcon = document.getElementById("watchlist-icon")
-        watchlistIcon.addEventListener("click", () => {
+        const watchlistBtn = document.getElementById("watchlist-btn")
+        watchlistBtn.addEventListener("click", () => {
             window.location.href = "/index.html"
         })
     }

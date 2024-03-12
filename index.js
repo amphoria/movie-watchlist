@@ -1,3 +1,6 @@
+import noDataInitial from '/images/no-data-initial.png'
+import star from '/images/star.png'
+
 const omdbApiKey = "e8fa1a7c"
 
 let watchList = []
@@ -32,7 +35,7 @@ movieList.addEventListener("click", (e) => {
 })
 
 movieList.innerHTML = `
-    <img class="no-initial-data" src="images/no-data-initial.png">
+    <img class="no-initial-data" src="${noDataInitial}">
 `
 
 async function searchOmdb() {
@@ -44,63 +47,54 @@ async function searchOmdb() {
 
     const searchStr = searchText.value.replace(/ /g, "+")
 
-    try {
-        res = await fetch(`http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchStr}`)
-        const results = await res.json()
-        if (results.Response === "False") {
-            
-            movieList.innerHTML = `
-                <img class="no-initial-data" src="images/no-data-initial.png">
-            `
-            popup.textContent = `${results.Error}`
-            popup.style.display = 'flex'
-            setTimeout(() => {
-                popup.style.display = 'none'
-            }, 3000)
-            return;
-        }
-    }
-    catch(err) {
-        console.error(err)
+    res = await fetch(`https://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchStr}`)
+    const results = await res.json()
+    if (results.Response === "False") {
+        
+        movieList.innerHTML = `
+            <img class="no-initial-data" src="images/no-data-initial.png">
+        `
+        popup.textContent = `${results.Error}`
+        popup.style.display = 'flex'
+        setTimeout(() => {
+            popup.style.display = 'none'
+        }, 3000)
+        return;
     }
 
     for (let item of results.Search) {
 
-        try {
-            res = await fetch(`http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${item.imdbID}`) 
-            data = await res.json()
+        res = await fetch(`https://www.omdbapi.com/?apikey=${omdbApiKey}&i=${item.imdbID}`) 
+        data = await res.json()
 
-            index = data.Ratings[0].Value.indexOf("/")
-            rating = data.Ratings[0].Value.slice(0, index)
+        index = data.Ratings[0].Value.indexOf("/")
+        rating = data.Ratings[0].Value.slice(0, index)
 
-            html += `
-                <div class="movie-item">
-                    <div class="poster">
-                        <img class="poster-img" src="${data.Poster}">
-                    </div>
-                    <div class="title">${data.Title}</div>
-                    <div class="rating">
-                        <img class="star" src="images/star.png">
-                        <span>${rating}</span>
-                    </div>
-                    <div class="timing">${data.Runtime}</div>
-                    <div class="movie-genre">${data.Genre}</div>
-                    <div class="add-to-watchlist">
-                        <button class="watchlist-btn">
-                            <i class="fa-solid fa-plus watchlist-icon" data-id="${data.imdbID}"></i> 
-                        </button>
-                        <span class="add-text">Watchlist</span>
+        html += `
+            <div class="movie-item">
+                <div class="poster">
+                    <img class="poster-img" src="${data.Poster}">
                 </div>
-                    <div class="movie-plot">${data.Plot}</div>
+                <div class="title">${data.Title}</div>
+                <div class="rating">
+                    <img class="star" src="${star}">
+                    <span>${rating}</span>
                 </div>
-            `
-        }
-        catch(err) {
-            console.error(err)
-        }
+                <div class="timing">${data.Runtime}</div>
+                <div class="movie-genre">${data.Genre}</div>
+                <div class="add-to-watchlist">
+                    <button class="watchlist-btn">
+                        <i class="fa-solid fa-plus watchlist-icon" data-id="${data.imdbID}"></i> 
+                    </button>
+                    <span class="add-text">Watchlist</span>
+            </div>
+                <div class="movie-plot">${data.Plot}</div>
+            </div>
+        `
     }
     movieList.innerHTML = html
 }
+
 
 
 

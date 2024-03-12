@@ -55,8 +55,8 @@ button {
     left: 45px;
 }
 
-.search-box img {
-    width: 17px;
+.search-icon {
+    width: 25px;
     background-color: white;
     padding: 5px;
     border-radius: 4px 0 0 4px;
