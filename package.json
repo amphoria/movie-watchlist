@@ -1,7 +1,9 @@
 {
   "name": "project",
   "type": "module",
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
   "devDependencies": {
     "vite": "latest"
   },

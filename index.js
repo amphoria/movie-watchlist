@@ -1,7 +1,7 @@
 import noDataInitial from '/images/no-data-initial.png'
 import star from '/images/star.png'
 
-const omdbApiKey = "e8fa1a7c"
+const omdbApiKey = import.meta.env.VITE_OMDB_API_KEY
 
 let watchList = []
 
