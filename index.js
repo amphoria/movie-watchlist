@@ -3,6 +3,8 @@ import star from '/images/star.png'
 
 const omdbApiKey = import.meta.env.VITE_OMDB_API_KEY
 
+console.log(omdbApiKey)
+
 let watchList = []
 
 //localStorage.clear()
