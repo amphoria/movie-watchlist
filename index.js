@@ -47,52 +47,63 @@ async function searchOmdb() {
 
     const searchStr = searchText.value.replace(/ /g, "+")
 
-    res = await fetch(`https://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchStr}`)
-    const results = await res.json()
-    if (results.Response === "False") {
-        
-        movieList.innerHTML = `
-            <img class="no-initial-data" src="images/no-data-initial.png">
-        `
-        popup.textContent = `${results.Error}`
-        popup.style.display = 'flex'
-        setTimeout(() => {
-            popup.style.display = 'none'
-        }, 3000)
-        return;
-    }
+    try {
+        res = await fetch(`https://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchStr}`)
+        if (!res.ok) {
+            throw new Error(`${res.status} ${res.statusText}`)
+        }
+        const results = await res.json()
 
-    for (let item of results.Search) {
+        if (results.Response === "False") {
+            
+            movieList.innerHTML = `
+                <img class="no-initial-data" src="images/no-data-initial.png">
+            `
+            popup.textContent = `${results.Error}`
+            popup.style.display = 'flex'
+            setTimeout(() => {
+                popup.style.display = 'none'
+            }, 3000)
+            return;
+        }
 
-        res = await fetch(`https://www.omdbapi.com/?apikey=${omdbApiKey}&i=${item.imdbID}`) 
-        data = await res.json()
+        for (let item of results.Search) {
 
-        index = data.Ratings[0].Value.indexOf("/")
-        rating = data.Ratings[0].Value.slice(0, index)
+            res = await fetch(`https://www.omdbapi.com/?apikey=${omdbApiKey}&i=${item.imdbID}`) 
+            if (!res.ok) {
+                throw new Error(`${res.status} ${res.statusText}`)
+            }
+            data = await res.json()
 
-        html += `
-            <div class="movie-item">
-                <div class="poster">
-                    <img class="poster-img" src="${data.Poster}">
+            index = data.Ratings[0].Value.indexOf("/")
+            rating = data.Ratings[0].Value.slice(0, index)
+
+            html += `
+                <div class="movie-item">
+                    <div class="poster">
+                        <img class="poster-img" src="${data.Poster}">
+                    </div>
+                    <div class="title">${data.Title}</div>
+                    <div class="rating">
+                        <img class="star" src="${star}">
+                        <span>${rating}</span>
+                    </div>
+                    <div class="timing">${data.Runtime}</div>
+                    <div class="movie-genre">${data.Genre}</div>
+                    <div class="add-to-watchlist">
+                        <button class="watchlist-btn">
+                            <i class="fa-solid fa-plus watchlist-icon" data-id="${data.imdbID}"></i> 
+                        </button>
+                        <span class="add-text">Watchlist</span>
                 </div>
-                <div class="title">${data.Title}</div>
-                <div class="rating">
-                    <img class="star" src="${star}">
-                    <span>${rating}</span>
+                    <div class="movie-plot">${data.Plot}</div>
                 </div>
-                <div class="timing">${data.Runtime}</div>
-                <div class="movie-genre">${data.Genre}</div>
-                <div class="add-to-watchlist">
-                    <button class="watchlist-btn">
-                        <i class="fa-solid fa-plus watchlist-icon" data-id="${data.imdbID}"></i> 
-                    </button>
-                    <span class="add-text">Watchlist</span>
-            </div>
-                <div class="movie-plot">${data.Plot}</div>
-            </div>
-        `
+            `
+        }
+        movieList.innerHTML = html
+    } catch (error) {
+        console.log(error)
     }
-    movieList.innerHTML = html
 }
 
 
