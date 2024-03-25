@@ -47,6 +47,8 @@ async function searchOmdb() {
 
     const searchStr = searchText.value.replace(/ /g, "+")
 
+    document.body.style.cursor = "wait"
+
     try {
         res = await fetch(`https://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchStr}`)
         if (!res.ok) {
@@ -104,6 +106,7 @@ async function searchOmdb() {
     } catch (error) {
         console.log(error)
     }
+    document.body.style = "default"
 }
 
 

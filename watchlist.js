@@ -30,6 +30,9 @@ async function renderWatchlist() {
     let rating
 
     if (watchList.length > 0) {
+
+        document.body.style.cursor = "wait"
+
         for (let item of watchList) {
 
             try {
@@ -67,6 +70,7 @@ async function renderWatchlist() {
             } catch(error) {
                 console.log(error)
             }
+            document.body.style.cursor = "default"
         }
     } else {
         html += `
@@ -85,6 +89,7 @@ async function renderWatchlist() {
         watchlistBtn.addEventListener("click", () => {
             window.location.href = "/index.html"
         })
+        document.body.style.cursor = "default"
     }
 }
 
