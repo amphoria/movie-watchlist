@@ -187,7 +187,7 @@ button {
 }
 
 /* Recent Apple iPhones */
-@media (min-resolution: 326dpi) {
+@media (-webkit-min-device-pixel-ratio: 3) {
     body {
         font-size: 2rem;
     }
