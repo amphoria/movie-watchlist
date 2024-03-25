@@ -186,6 +186,17 @@ button {
     font-weight: 700;
 }
 
+/* Recent Apple iPhones */
+@media (min-resolution: 326dpi) {
+    body {
+        font-size: 2rem;
+    }
+
+    .search-box {
+        font-size: 2rem;
+    }
+}
+
 
 
 
